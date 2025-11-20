@@ -1,1 +1,9 @@
-<p>checkout works!</p>
+<h3>List of Items:</h3>
+@for (item of checkoutItems; track item.name) {
+  <p>{{ item.name }}</p>
+  <p>{{ item.amount }} x {{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
+}
+
+<b>
+    Summe: {{ totalAmount() }}
+</b>

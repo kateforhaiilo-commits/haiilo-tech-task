@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'items',
-  imports: [CommonModule],
+  imports: [ CommonModule ],
   templateUrl: './items.html',
   styleUrl: './items.scss',
 })
 export class ItemsComponent {
-  public items = [{
+  public items: Array<{name: string, price: number}> = [{
     name: 'apple',
     price: 1.2
   }, {
