@@ -23,9 +23,6 @@ export class CheckoutComponent {
   }];
 
   public totalAmount(): number {
-    const value = this.checkoutItems.reduce((total, item) => total + (item.price * item.amount), 0);
-    console.log(value);
-
-    return value;
+    return this.checkoutItems.reduce((total, item) => total + (item.price * item.amount), 0);
   }
 }
