@@ -1,1 +1,6 @@
-<p>items works!</p>
+@for (item of items; track item.name) {
+  <p>{{ item.name }}</p>
+  <p>{{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
+  Amount:
+  <input type="number" min="0" max="990" value="0" />
+}
