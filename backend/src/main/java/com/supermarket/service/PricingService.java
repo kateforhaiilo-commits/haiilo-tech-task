@@ -21,8 +21,9 @@ record OfferRule(int quantity, int price) {
  * @param name      The unique name of the item (e.g., "Apple").
  * @param unitPrice The standard price for one item.
  * @param offer     The special offer rule, or null if no offer exists.
+ * @param quantity  The quantity, how many items are selected.
  */
-record ItemPrice(String name, int unitPrice, OfferRule offer) {
+record ItemPrice(String name, int unitPrice, OfferRule offer, int quantity) {
 }
 
 /**
@@ -37,16 +38,16 @@ public class PricingService {
         Map<String, ItemPrice> tempMap = new HashMap<>();
 
         // Apple: 30 each, 2 for 45
-        tempMap.put("Apple", new ItemPrice("Apple", 30, new OfferRule(2, 45)));
+        tempMap.put("Apple", new ItemPrice("Apple", 30, new OfferRule(2, 45), 0));
 
         // Banana: 50 each, 3 for 130
-        tempMap.put("Banana", new ItemPrice("Banana", 50, new OfferRule(3, 130)));
+        tempMap.put("Banana", new ItemPrice("Banana", 50, new OfferRule(3, 130), 0));
 
         // Peach: 60 each, no offer
-        tempMap.put("Peach", new ItemPrice("Peach", 60, null));
+        tempMap.put("Peach", new ItemPrice("Peach", 60, null, 0));
 
         // Kiwi: 20 each, no offer
-        tempMap.put("Kiwi", new ItemPrice("Kiwi", 20, null));
+        tempMap.put("Kiwi", new ItemPrice("Kiwi", 20, null, 0));
 
         // Make the pricing table immutable for safety
         this.pricingMap = Collections.unmodifiableMap(tempMap);

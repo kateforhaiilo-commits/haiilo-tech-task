@@ -1,6 +1,5 @@
 package com.supermarket.service;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200") // Allow frontend to connect
+@RequestMapping("/api/items")
 public class ItemController {
 
     private final PricingService pricingService;
@@ -20,11 +18,18 @@ public class ItemController {
         this.pricingService = pricingService;
     }
 
-    @GetMapping("/items")
+    @GetMapping
     public List<ItemDto> getItems() {
         AtomicLong idCounter = new AtomicLong();
         return pricingService.getAllPricing().values().stream()
-                .map(itemPrice -> new ItemDto(idCounter.incrementAndGet(), itemPrice.name(), itemPrice.unitPrice()))
+                .map(itemPrice -> toDto(itemPrice, idCounter.incrementAndGet()))
                 .collect(Collectors.toList());
+    }
+
+    private ItemDto toDto(ItemPrice itemPrice, long id) {
+        // This is a simplified mapping. Consider using a library like MapStruct for
+        // more complex applications.
+        // For now, we manually create the DTO.
+        return new ItemDto(id, itemPrice.name(), itemPrice.unitPrice(), itemPrice.offer(), 0);
     }
 }
