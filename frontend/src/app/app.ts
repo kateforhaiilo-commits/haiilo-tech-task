@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CheckoutComponent } from './supermarket/checkout/checkout';
 import { ItemsComponent } from './supermarket/items/items';
 import { HeaderComponent } from './supermarket/header/header';
@@ -6,14 +6,12 @@ import { CheckoutStore } from './store/checkout.store';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
   imports: [HeaderComponent, ItemsComponent, CheckoutComponent],
-  standalone: true
+  templateUrl: './app.html',
+  styleUrl: './app.scss'
 })
-export class App implements OnInit {
-  public readonly store = inject(CheckoutStore);
-  public items$ = this.store.items();
+export class App {
+  private readonly store = inject(CheckoutStore);
 
   public ngOnInit(): void {
     this.store.loadItems();
