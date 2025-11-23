@@ -1,6 +1,18 @@
-@for (item of items; track item.name) {
-  <p>{{ item.name }}</p>
-  <p>{{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
-  Amount:
-  <input type="number" min="0" max="990" value="0" />
-}
+<form [formGroup]="itemsForm">
+  @for (item of items(); track item.id) {
+    <p>{{ item.name }}</p>
+    <p>{{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
+    <!-- OFFER -->
+     @if (item.offer) {
+      <p>Special Offer - Get {{ item.offer.quantity }} for {{ item.offer.price }}!!!</p>
+    }
+
+    Amount:
+
+    <button (click)="decrementQuantity(item.name)"> < </button>
+
+    <input [formControlName]="item.name" />
+
+    <button (click)="incrementQuantity(item.name)"> > </button>
+  }
+</form>

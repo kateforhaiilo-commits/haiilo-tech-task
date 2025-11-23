@@ -1,9 +1,11 @@
 <h3>List of Items:</h3>
-@for (item of checkoutItems; track item.name) {
-  <p>{{ item.name }}</p>
-  <p>{{ item.amount }} x {{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
+@for (item of items(); track item.id) {
+  @if (item.quantity > 0) {
+    <!-- TODO: nice to have: show item price here and special offer here as well -->
+    <p>{{ item.quantity }} x {{ item.name }}</p>
+  }
 }
 
 <b>
-    Summe: {{ totalAmount() | currency: 'EUR' : 'symbol' : '1.2-2' }}
+    Summe: {{ total() | currency: 'EUR' : 'symbol' : '1.2-2' }}
 </b>
