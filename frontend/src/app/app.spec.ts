@@ -4,13 +4,13 @@ import { vi } from 'vitest';
 import { App } from './app';
 import { CheckoutStore } from './store/checkout.store';
 
-@Component({ selector: 'header', template: '', standalone: true })
+@Component({ selector: 'app-header', template: '', standalone: true })
 class MockHeaderComponent {}
 
-@Component({ selector: 'items', template: '', standalone: true })
+@Component({ selector: 'app-items', template: '', standalone: true })
 class MockItemsComponent {}
 
-@Component({ selector: 'checkout', template: '', standalone: true })
+@Component({ selector: 'app-checkout', template: '', standalone: true })
 class MockCheckoutComponent {}
 
 class MockCheckoutStore {
@@ -29,12 +29,13 @@ describe('App', () => {
       imports: [App],
       providers: [
         provideZonelessChangeDetection(),
-        { provide: CheckoutStore, useValue: mockStore }
+        { provide: CheckoutStore, useValue: mockStore },
       ],
     })
-    .overrideComponent(App, {
-      set: { imports: [MockHeaderComponent, MockItemsComponent, MockCheckoutComponent] },
-    }).compileComponents();
+      .overrideComponent(App, {
+        set: { imports: [MockHeaderComponent, MockItemsComponent, MockCheckoutComponent] },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(App);
     component = fixture.componentInstance;

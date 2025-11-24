@@ -7,13 +7,14 @@
     }
   }
 
- @if (isNoProductSelected()) {
+  @if (isNoProductSelected()) {
     <p>Please place items</p>
   }
 
-  <p class="font-bold mt-10">Total amount:<br>
-      <span class="text-2xl">
-        {{ total() | currency: 'EUR' : 'symbol' : '1.2-2' }}
-      </span>
+  <p class="font-bold mt-10">
+    Total amount:<br />
+    <span class="text-2xl">
+      {{ total() | currency: 'EUR' : 'symbol' : '1.2-2' }}
+    </span>
   </p>
 </div>

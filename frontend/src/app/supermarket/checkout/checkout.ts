@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
-import { CheckoutStore, Item } from '../../store/checkout.store';
+import { CheckoutStore } from '../../store/checkout.store';
 
 @Component({
-  selector: 'checkout',
-  imports: [ CommonModule ],
+  selector: 'app-checkout',
+  imports: [CommonModule],
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss'],
 })
@@ -17,7 +17,7 @@ export class CheckoutComponent {
   public constructor() {
     effect(() => {
       const currentItems = this.store.items();
-      this.isNoProductSelected.set(currentItems.every(item => item.quantity === 0));
+      this.isNoProductSelected.set(currentItems.every((item) => item.quantity === 0));
     });
   }
 }

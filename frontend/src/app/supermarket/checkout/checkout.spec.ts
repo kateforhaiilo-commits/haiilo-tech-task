@@ -22,10 +22,9 @@ describe('CheckoutComponent', () => {
       imports: [CheckoutComponent],
       providers: [
         provideZonelessChangeDetection(),
-        { provide: CheckoutStore, useValue: mockStore }
-      ]
-    })
-    .compileComponents();
+        { provide: CheckoutStore, useValue: mockStore },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CheckoutComponent);
     component = fixture.componentInstance;
@@ -33,6 +32,6 @@ describe('CheckoutComponent', () => {
   });
 
   it('should create', () => {
-     expect(component).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 });

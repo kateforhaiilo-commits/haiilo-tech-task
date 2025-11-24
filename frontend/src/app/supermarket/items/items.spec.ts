@@ -1,7 +1,6 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideZonelessChangeDetection, signal, WritableSignal } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import { ItemsComponent } from './items';
 import { CheckoutStore, Item } from '../../store/checkout.store';

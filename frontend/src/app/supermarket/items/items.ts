@@ -6,7 +6,7 @@ import { pairwise, startWith, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-items',
-  imports: [ CommonModule, ReactiveFormsModule, NgOptimizedImage ],
+  imports: [CommonModule, ReactiveFormsModule, NgOptimizedImage],
   templateUrl: './items.html',
   styleUrl: './items.scss',
 })
@@ -22,7 +22,7 @@ export class ItemsComponent implements OnDestroy {
     effect(() => {
       const currentItems = this.store.items();
       const currentControls = Object.keys(this.itemsForm.controls);
-      const itemNames = currentItems.map(item => item.name);
+      const itemNames = currentItems.map((item) => item.name);
 
       // Add new controls for new items
       currentItems.forEach((item: Item) => {
@@ -30,28 +30,27 @@ export class ItemsComponent implements OnDestroy {
           const control = this.fb.control(item.quantity || 0, [
             Validators.min(0),
             Validators.max(999),
-            Validators.pattern(/^[0-9]*$/) // only whole numbers
+            Validators.pattern(/^[0-9]*$/), // only whole numbers
           ]);
           this.itemsForm.addControl(item.name, control);
 
-          const sub = control.valueChanges.pipe(
-            startWith(control.value),
-            pairwise()
-          ).subscribe(([prev, next]) => {
-            // special null check to avoid problems with the value of 0
-            if (control.valid && prev !== next && next !== null) {
-              this.store.updateItemQuantity(item.name, next);
-            } else if (!control.valid && prev !== next && next !== null) {
-              // if value is invalid -> reset to 0 in the store
-              this.store.updateItemQuantity(item.name, 0);
-            }
-          });
+          const sub = control.valueChanges
+            .pipe(startWith(control.value), pairwise())
+            .subscribe(([prev, next]) => {
+              // special null check to avoid problems with the value of 0
+              if (control.valid && prev !== next && next !== null) {
+                this.store.updateItemQuantity(item.name, next);
+              } else if (!control.valid && prev !== next && next !== null) {
+                // if value is invalid -> reset to 0 in the store
+                this.store.updateItemQuantity(item.name, 0);
+              }
+            });
           this.formSubscriptions.set(item.name, sub);
         }
       });
 
       // Remove old controls that are no longer in the items list
-      currentControls.forEach(controlName => {
+      currentControls.forEach((controlName) => {
         if (!itemNames.includes(controlName)) {
           this.itemsForm.removeControl(controlName);
           this.formSubscriptions.get(controlName)?.unsubscribe();
@@ -65,7 +64,7 @@ export class ItemsComponent implements OnDestroy {
    * Cleanup subscriptions on component destroy
    */
   public ngOnDestroy(): void {
-    this.formSubscriptions.forEach(sub => sub.unsubscribe());
+    this.formSubscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   /**
@@ -94,6 +93,6 @@ export class ItemsComponent implements OnDestroy {
 
   public imageUrl(itemName: string): string {
     const subStrings = itemName.toLowerCase().split(' ');
-    return `images/${subStrings[subStrings.length -1]}.png`;
+    return `images/${subStrings[subStrings.length - 1]}.png`;
   }
 }

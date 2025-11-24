@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CheckoutComponent } from './supermarket/checkout/checkout';
 import { ItemsComponent } from './supermarket/items/items';
 import { HeaderComponent } from './supermarket/header/header';
@@ -8,9 +8,9 @@ import { CheckoutStore } from './store/checkout.store';
   selector: 'app-root',
   imports: [HeaderComponent, ItemsComponent, CheckoutComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
-export class App {
+export class App implements OnInit {
   private readonly store = inject(CheckoutStore);
 
   public ngOnInit(): void {

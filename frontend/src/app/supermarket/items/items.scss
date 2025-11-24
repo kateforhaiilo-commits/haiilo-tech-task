@@ -1,16 +1,16 @@
 .amount-input {
-    border: solid var(--border);
-    border-width: 0 0 2px;
-    width: 60%;
+  border: solid var(--border);
+  border-width: 0 0 2px;
+  width: 60%;
 
-    &:active,
-    &:focus,
-    &:focus-visible {
-        outline: none;
-        border-color: var(--interactive-active);
-    }
+  &:active,
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--interactive-active);
+  }
 
-    &.invalid-input {
-        border-color: var(--warning);
-    }
+  &.invalid-input {
+    border-color: var(--warning);
+  }
 }
