@@ -1,8 +1,11 @@
-package com.supermarket.service;
+package com.supermarket.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.supermarket.service.ItemDto;
+import com.supermarket.service.PricingService;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -26,7 +29,7 @@ public class ItemController {
                 .collect(Collectors.toList());
     }
 
-    private ItemDto toDto(ItemPrice itemPrice, long id) {
+    private ItemDto toDto(com.supermarket.service.ItemPrice itemPrice, long id) {
         // This is a simplified mapping. Consider using a library like MapStruct for
         // more complex applications.
         // For now, we manually create the DTO.

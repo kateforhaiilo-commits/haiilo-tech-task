@@ -3,6 +3,7 @@ package com.supermarket.service;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.HashMap;
+import java.math.BigDecimal;
 import java.util.Collections;
 
 /**
@@ -11,19 +12,7 @@ import java.util.Collections;
  * @param quantity The number of items required for the offer.
  * @param price    The total price for the offer quantity.
  */
-record OfferRule(int quantity, int price) {
-}
-
-/**
- * Data model for an individual item, including its unit price and special
- * offer.
- *
- * @param name      The unique name of the item (e.g., "Apple").
- * @param unitPrice The standard price for one item.
- * @param offer     The special offer rule, or null if no offer exists.
- * @param quantity  The quantity, how many items are selected.
- */
-record ItemPrice(String name, int unitPrice, OfferRule offer, int quantity) {
+record OfferRule(int quantity, BigDecimal price) {
 }
 
 /**
@@ -32,43 +21,48 @@ record ItemPrice(String name, int unitPrice, OfferRule offer, int quantity) {
 @Service
 public class PricingService {
 
-    private final Map<String, ItemPrice> pricingMap;
+        private final Map<String, ItemPrice> pricingMap;
 
-    public PricingService() {
-        Map<String, ItemPrice> tempMap = new HashMap<>();
+        public PricingService() {
+                Map<String, ItemPrice> tempMap = new HashMap<>();
 
-        // Apple: 30 each, 2 for 45
-        tempMap.put("Apple", new ItemPrice("Apple", 30, new OfferRule(2, 45), 0));
+                tempMap.put("Aurora Apple",
+                                new ItemPrice("Aurora Apple", new BigDecimal(3.00),
+                                                new OfferRule(2, new BigDecimal(4.5)), 0));
+                tempMap.put("Blazing Banana",
+                                new ItemPrice("Blazing Banana", new BigDecimal(5.25),
+                                                new OfferRule(3, new BigDecimal(13)), 0));
+                tempMap.put("Shimmering Starfruit",
+                                new ItemPrice("Shimmering Starfruit", new BigDecimal(6.66), null, 0));
+                tempMap.put("Kismet Kiwi",
+                                new ItemPrice("Kismet Kiwi", new BigDecimal(3.75),
+                                                new OfferRule(2, new BigDecimal(6.5)), 0));
+                tempMap.put("Prism Pear", new ItemPrice("Prism Pear", new BigDecimal(2.50), null,
+                                0));
+                tempMap.put("Celestial Carrot",
+                                new ItemPrice("Celestial Carrot", new BigDecimal(1.99), new OfferRule(666,
+                                                new BigDecimal(999)), 0));
 
-        // Banana: 50 each, 3 for 130
-        tempMap.put("Banana", new ItemPrice("Banana", 50, new OfferRule(3, 130), 0));
+                // Make the pricing table immutable for safety
+                this.pricingMap = Collections.unmodifiableMap(tempMap);
+        }
 
-        // Peach: 60 each, no offer
-        tempMap.put("Peach", new ItemPrice("Peach", 60, null, 0));
+        /**
+         * Retrieves the pricing details for a given item name.
+         *
+         * @param itemName The name of the item.
+         * @return The ItemPrice object, or null if the item is not found.
+         */
+        public ItemPrice getPrice(String itemName) {
+                return pricingMap.get(itemName);
+        }
 
-        // Kiwi: 20 each, no offer
-        tempMap.put("Kiwi", new ItemPrice("Kiwi", 20, null, 0));
-
-        // Make the pricing table immutable for safety
-        this.pricingMap = Collections.unmodifiableMap(tempMap);
-    }
-
-    /**
-     * Retrieves the pricing details for a given item name.
-     *
-     * @param itemName The name of the item.
-     * @return The ItemPrice object, or null if the item is not found.
-     */
-    public ItemPrice getPrice(String itemName) {
-        return pricingMap.get(itemName);
-    }
-
-    /**
-     * Returns the full map of current pricing rules.
-     *
-     * @return Immutable map of item names to their prices/offers.
-     */
-    public Map<String, ItemPrice> getAllPricing() {
-        return pricingMap;
-    }
+        /**
+         * Returns the full map of current pricing rules.
+         *
+         * @return Immutable map of item names to their prices/offers.
+         */
+        public Map<String, ItemPrice> getAllPricing() {
+                return pricingMap;
+        }
 }

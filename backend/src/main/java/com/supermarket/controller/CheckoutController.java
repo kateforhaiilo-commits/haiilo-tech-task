@@ -3,11 +3,10 @@ package com.supermarket.controller;
 import com.supermarket.dto.CheckoutRequestDto;
 import com.supermarket.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -32,14 +31,14 @@ public class CheckoutController {
      * @return
      */
     @PostMapping("/checkout")
-    public Map<String, Integer> checkout(@RequestBody CheckoutRequestDto request) {
-        int total = checkoutService.updateItems(request.getItems());
-        return Collections.singletonMap("total", total);
+    public Map<String, BigDecimal> checkout(@RequestBody CheckoutRequestDto request) {
+        BigDecimal totalPrice = checkoutService.updateItems(request.getItems());
+        return Collections.singletonMap("total", totalPrice);
     }
 
-    record OfferRule(int quantity, int price) {
+    record OfferRule(int quantity, BigDecimal price) {
     }
 
-    record ItemPrice(String name, int unitPrice, OfferRule offer) {
+    record ItemPrice(String name, BigDecimal unitPrice, OfferRule offer) {
     }
 }
