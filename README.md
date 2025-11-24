@@ -50,12 +50,6 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-# Using Maven Wrapper (Windows)
-
-```bash
-mvnw spring-boot:run
-```
-
 The backend will start on [http://localhost:8080](http://localhost:8080).
 
 ### Terminal 2: Start the Frontend
@@ -69,15 +63,19 @@ ng serve
 
 The frontend will start on [http://localhost:4200](http://localhost:4200).
 
-✅ Verification
+### Frotend test
 
-Open your browser to [http://localhost:4200](http://localhost:4200).
+```bash
+cd frontend
+ng test
+```
 
-Look for the "Backend Status" indicator in the top right corner.
+### Frotend lint
 
-🟢 Online: The frontend successfully connected to localhost:8080/api/health.
-
-🔴 Offline: The frontend could not reach the backend (check if the backend terminal is running).
+```bash
+cd frontend
+ng lint
+```
 
 ✍️ Author
 Katrin Otto
