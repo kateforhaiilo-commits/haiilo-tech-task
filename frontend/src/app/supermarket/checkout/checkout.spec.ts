@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckoutComponent } from './checkout';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection, signal, WritableSignal } from '@angular/core';
 import { vi } from 'vitest';
-import { CheckoutStore } from '../../store/checkout.store';
+import { CheckoutStore, Item } from '../../store/checkout.store';
 
 class MockCheckoutStore {
-  items = vi.fn();
+  items: WritableSignal<Item[]> = signal([]);
   total = vi.fn();
 }
 
@@ -23,7 +23,6 @@ describe('CheckoutComponent', () => {
       providers: [
         provideZonelessChangeDetection(),
         { provide: CheckoutStore, useValue: mockStore }
-
       ]
     })
     .compileComponents();
@@ -34,6 +33,6 @@ describe('CheckoutComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+     expect(component).toBeTruthy();
   });
 });
