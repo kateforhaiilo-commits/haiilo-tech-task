@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { pairwise, startWith, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'items',
+  selector: 'app-items',
   imports: [ CommonModule, ReactiveFormsModule, NgOptimizedImage ],
   templateUrl: './items.html',
   styleUrl: './items.scss',
@@ -39,7 +39,6 @@ export class ItemsComponent implements OnDestroy {
             pairwise()
           ).subscribe(([prev, next]) => {
             // special null check to avoid problems with the value of 0
-            // todo add invalid styling and error messages to the form inputs
             if (control.valid && prev !== next && next !== null) {
               this.store.updateItemQuantity(item.name, next);
             } else if (!control.valid && prev !== next && next !== null) {
@@ -77,7 +76,7 @@ export class ItemsComponent implements OnDestroy {
     const control = this.itemsForm.get(itameName);
 
     if (control && control.valid && control.value < 999) {
-      control.setValue(control.value + 1);
+      control.setValue(parseInt(control.value) + 1);
     }
   }
 
@@ -89,11 +88,11 @@ export class ItemsComponent implements OnDestroy {
     const control = this.itemsForm.get(itameName);
 
     if (control && control.valid && control.value > 0) {
-      control.setValue(control.value - 1);
+      control.setValue(parseInt(control.value) - 1);
     }
   }
 
-  public imageName(itemName: string): string {
+  public imageUrl(itemName: string): string {
     const subStrings = itemName.toLowerCase().split(' ');
     return `images/${subStrings[subStrings.length -1]}.png`;
   }

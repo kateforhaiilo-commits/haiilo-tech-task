@@ -4,7 +4,7 @@
       <div class="rounded-xl bg-white shadow-md p-8">
         <p>
           <span class="text-3xl">{{ item.name }}</span>
-          <img ngSrc="{{ imageName(item.name) }}" width="500" height="500" alt="{{ item.name }}" />
+          <img ngSrc="{{ imageUrl(item.name) }}" width="500" height="500" alt="{{ item.name }}" />
           {{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }} <span class="text-sm">per item</span>
         </p>
 
@@ -19,16 +19,18 @@
 
           <div class="flex items-center gap-4">
             <button
-              class="py-3 px-5 shadow-sm rounded-md"
-              (click)="decrementQuantity(item.name)">
+              class="py-3 px-5 shadow-sm rounded-md disabled:opacity-25"
+              (click)="decrementQuantity(item.name)"
+              [disabled]="itemsForm.get(item.name)?.value <= 0">
               &#8826;
             </button>
 
-            <input [formControlName]="item.name" id="{{ item.id }}" class="px-2 amount-input text-3xl" />
+            <input [formControlName]="item.name" id="{{ item.id }}" class="px-2 amount-input text-3xl" [class.invalid-input]="itemsForm.get(item.name)?.invalid" />
 
             <button
-              class="py-3 px-5 shadow-sm rounded-md"
-              (click)="incrementQuantity(item.name)">
+              class="py-3 px-5 shadow-sm rounded-md disabled:opacity-25"
+              (click)="incrementQuantity(item.name)"
+              [disabled]="itemsForm.get(item.name)?.value >= 999">
               &#8827;
             </button>
           </div>

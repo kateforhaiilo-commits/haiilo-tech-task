@@ -9,4 +9,8 @@
         outline: none;
         border-color: var(--interactive-active);
     }
+
+    &.invalid-input {
+        border-color: var(--warning);
+    }
 }

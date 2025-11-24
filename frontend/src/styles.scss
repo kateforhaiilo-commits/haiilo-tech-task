@@ -10,6 +10,7 @@
     --interactive-on: oklch(100% 0 270);
     --interactive-on-hover: oklch(80% 0.07 335);
     --border: oklch(69.358% 0.00114 13.388);
+    --warning: oklch(57.886% 0.20555 26.015);
 }
 
 body {
@@ -25,9 +26,13 @@ button {
     font-weight: 800;
     font-size: 20px;
 
-    &:hover {
+    &:hover:not(:disabled) {
         background-color: var(--interactive-on-hover);
         cursor: pointer;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
     }
 }
 
