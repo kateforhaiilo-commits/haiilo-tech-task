@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
+
+:root {
+    --font-size: 16px;
+    --background: oklch(95.5% 0.015 92);
+    --foreground: oklch(40% 0.00004 270);
+    --card: oklch(100% 0 0);
+    --interactive: oklch(91.56% 0.04307 334.177);
+    --interactive-active: oklch(78.15% 0.06761 335.197);
+    --interactive-on: oklch(100% 0 270);
+    --interactive-on-hover: oklch(80% 0.07 335);
+    --border: oklch(69.358% 0.00114 13.388);
+}
+
+body {
+    font-size: var(--font-size);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+button {
+    background-color: var(--interactive);
+    color: var(--interactive-on);
+    font-weight: 800;
+    font-size: 20px;
+
+    &:hover {
+        background-color: var(--interactive-on-hover);
+        cursor: pointer;
+    }
+}
+

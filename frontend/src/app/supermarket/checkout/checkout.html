@@ -1,11 +1,19 @@
-<h3>List of Items:</h3>
-@for (item of items(); track item.id) {
-  @if (item.quantity > 0) {
-    <!-- TODO: nice to have: show item price here and special offer here as well -->
-    <p>{{ item.quantity }} x {{ item.name }}</p>
+<div class="relative sm:fixed rounded-xl bg-white shadow-md p-8 sm:w-70">
+  <h3 class="text-2xl">Basket:</h3>
+  @for (item of items(); track item.id) {
+    @if (item.quantity > 0) {
+      <!-- TODO: nice to have: show item price here and special offer here as well -->
+      <p>{{ item.quantity }} x {{ item.name }}</p>
+    }
   }
-}
 
-<b>
-    Summe: {{ total() | currency: 'EUR' : 'symbol' : '1.2-2' }}
-</b>
+ @if (isNoProductSelected()) {
+    <p>Please place items</p>
+  }
+
+  <p class="font-bold mt-10">Total amount:<br>
+      <span class="text-2xl">
+        {{ total() | currency: 'EUR' : 'symbol' : '1.2-2' }}
+      </span>
+  </p>
+</div>

@@ -1,18 +1,39 @@
 <form [formGroup]="itemsForm">
   @for (item of items(); track item.id) {
-    <p>{{ item.name }}</p>
-    <p>{{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
-    <!-- OFFER -->
-     @if (item.offer) {
-      <p>Special Offer - Get {{ item.offer.quantity }} for {{ item.offer.price }}!!!</p>
-    }
+    <div class="mb-20">
+      <div class="rounded-xl bg-white shadow-md p-8">
+        <p>
+          <span class="text-3xl">{{ item.name }}</span>
+          <img ngSrc="{{ imageName(item.name) }}" width="500" height="500" alt="{{ item.name }}" />
+          {{ item.price | currency: 'EUR' : 'symbol' : '1.2-2' }} <span class="text-sm">per item</span>
+        </p>
 
-    Amount:
+        <!-- OFFER -->
+         @if (item.offer) {
+          <p>Special Offer: Get <span class="text-lg">{{ item.offer.quantity }}</span> for <span class="text-lg">{{ item.offer.price | currency: 'EUR' : 'symbol' : '1.2-2' }}!</span></p>
+        }
 
-    <button (click)="decrementQuantity(item.name)"> < </button>
+        <!-- Quantity Selection -->
+        <div class="mt-20">
+          <label class="text-sm ml-17" for="{{ item.id }}">Amount:</label>
 
-    <input [formControlName]="item.name" />
+          <div class="flex items-center gap-4">
+            <button
+              class="py-3 px-5 shadow-sm rounded-md"
+              (click)="decrementQuantity(item.name)">
+              &#8826;
+            </button>
 
-    <button (click)="incrementQuantity(item.name)"> > </button>
+            <input [formControlName]="item.name" id="{{ item.id }}" class="px-2 amount-input text-3xl" />
+
+            <button
+              class="py-3 px-5 shadow-sm rounded-md"
+              (click)="incrementQuantity(item.name)">
+              &#8827;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   }
 </form>

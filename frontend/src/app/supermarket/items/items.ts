@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, effect, inject, OnDestroy } from '@angular/core';
 import { CheckoutStore, Item } from '../../store/checkout.store';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,18 +6,18 @@ import { pairwise, startWith, Subscription } from 'rxjs';
 
 @Component({
   selector: 'items',
-  imports: [ CommonModule, ReactiveFormsModule ],
+  imports: [ CommonModule, ReactiveFormsModule, NgOptimizedImage ],
   templateUrl: './items.html',
   styleUrl: './items.scss',
 })
 export class ItemsComponent implements OnDestroy {
   public readonly store = inject(CheckoutStore);
   private readonly fb = inject(FormBuilder);
-  public items = this.store.items;
+  public readonly items = this.store.items;
   public itemsForm: FormGroup;
   private formSubscriptions = new Map<string, Subscription>();
 
-  constructor() {
+  public constructor() {
     this.itemsForm = this.fb.group({});
     effect(() => {
       const currentItems = this.store.items();
@@ -91,5 +91,10 @@ export class ItemsComponent implements OnDestroy {
     if (control && control.valid && control.value > 0) {
       control.setValue(control.value - 1);
     }
+  }
+
+  public imageName(itemName: string): string {
+    const subStrings = itemName.toLowerCase().split(' ');
+    return `images/${subStrings[subStrings.length -1]}.png`;
   }
 }
