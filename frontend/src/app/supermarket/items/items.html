@@ -2,6 +2,7 @@
   @for (item of items(); track item.id) {
     <div class="mb-20">
       <div class="rounded-xl bg-white shadow-md p-8">
+        <!-- Item Info -->
         <p>
           <span class="text-3xl">{{ item.name }}</span>
           <img ngSrc="{{ imageUrl(item.name) }}" width="500" height="500" alt="{{ item.name }}" />
@@ -27,7 +28,7 @@
             <button
               class="py-3 px-5 shadow-sm rounded-md disabled:opacity-25"
               (click)="decrementQuantity(item.name)"
-              [disabled]="itemsForm.get(item.name)?.value <= 0"
+              [disabled]="itemsForm.get(item.name)?.value <= 0 || itemsForm.get(item.name)?.invalid"
             >
               &#8826;
             </button>
@@ -37,12 +38,15 @@
               id="{{ item.id }}"
               class="px-2 amount-input text-3xl"
               [class.invalid-input]="itemsForm.get(item.name)?.invalid"
+              (blur)="onInputBlur(item.name)"
             />
 
             <button
               class="py-3 px-5 shadow-sm rounded-md disabled:opacity-25"
               (click)="incrementQuantity(item.name)"
-              [disabled]="itemsForm.get(item.name)?.value >= 999"
+              [disabled]="
+                itemsForm.get(item.name)?.value >= 999 || itemsForm.get(item.name)?.invalid
+              "
             >
               &#8827;
             </button>

@@ -2,6 +2,7 @@
 
 This project demonstrates my skills in Frontend with Angular and Typescript as well Backend with Java and Spring Boot.
 It features a responsive Supermarket Checkout UI with Tailwind CSS and a real-time connection to the backend API.
+It also includes Signal Store, eslint, prettier and tests. There are still todos in the code. I'm aware that there is potatial to make the whole feature more user friendly and better but I hope for the puprose of demosntrating my experience it is enough.
 
 ## 📂 Project Structure
 
@@ -10,8 +11,8 @@ Root directory containing backend and frontend projects:
 ```
     root/
     ├── backend/ # Spring Boot Maven Project
-    │ └── src/main/java/com/example/ecommerce/...
-    └── frontend/ # Angular CLI Project
+    │ └── src/main/java/com/...
+    └── frontend/ # Angular Project
     │ └── src/app/...
 ```
 
@@ -42,11 +43,6 @@ From the project root folder:
 
 ```bash
 cd backend
-```
-
-# Using Maven Wrapper (Linux/macOS)
-
-```bash
 ./mvnw spring-boot:run
 ```
 
@@ -63,21 +59,40 @@ ng serve
 
 The frontend will start on [http://localhost:4200](http://localhost:4200).
 
-### Frotend test
+### 🦄 Frotend test
+
+Run the unit test locally from root folder by executing the following script
 
 ```bash
-cd frontend
-ng test
+cd frontend && ng test
 ```
 
-### Frotend lint
+### 👩‍💻 Frotend lint
+
+Run eslint locally from root folder by executing the following script
 
 ```bash
-cd frontend
-ng lint
+cd frontend && ng lint
 ```
 
-✍️ Author
+### 🦋 Frotend prettier
+
+Run prettier locally from root folder by executing the following scripts.
+
+For checking:
+
+```bash
+cd frontend && npm run prettier:check
+```
+
+For formatting:
+
+```bash
+cd frontend && npm run prettier:format
+```
+
+### ✍️ Author
+
 Katrin Otto
 Senior Full Stack Developer with focus on Frontend
 

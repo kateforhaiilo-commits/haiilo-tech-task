@@ -91,8 +91,28 @@ export class ItemsComponent implements OnDestroy {
     }
   }
 
+  /**
+   * create the url to the image by its name
+   * @param itemName
+   */
   public imageUrl(itemName: string): string {
     const subStrings = itemName.toLowerCase().split(' ');
     return `images/${subStrings[subStrings.length - 1]}.png`;
+  }
+
+  /**
+   * set the input back to 0 if blurred and empty
+   * prevent naN values in the form
+   * @param itemName
+   */
+  public onInputBlur(itemName: string): void {
+    const control = this.itemsForm.get(itemName);
+
+    if (control) {
+      // If the input is empty reset it to 0
+      if (control.value === null || control.value === '') {
+        control.setValue(0);
+      }
+    }
   }
 }

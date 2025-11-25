@@ -8,7 +8,6 @@ import { CheckoutStore } from './store/checkout.store';
   selector: 'app-root',
   imports: [HeaderComponent, ItemsComponent, CheckoutComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
 })
 export class App implements OnInit {
   private readonly store = inject(CheckoutStore);

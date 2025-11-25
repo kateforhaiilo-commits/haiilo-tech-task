@@ -57,6 +57,7 @@ export const CheckoutStore = signalStore(
 
         patchState(store, { items: updatedItems });
 
+        // TODO instead of sending everything only send necessary data
         http
           .post<{ total: number }>('http://localhost:8080/api/checkout', { items: store.items() })
           .pipe(

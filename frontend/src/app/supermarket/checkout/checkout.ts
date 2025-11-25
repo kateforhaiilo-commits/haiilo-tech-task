@@ -6,7 +6,6 @@ import { CheckoutStore } from '../../store/checkout.store';
   selector: 'app-checkout',
   imports: [CommonModule],
   templateUrl: './checkout.html',
-  styleUrls: ['./checkout.scss'],
 })
 export class CheckoutComponent {
   public readonly store = inject(CheckoutStore);

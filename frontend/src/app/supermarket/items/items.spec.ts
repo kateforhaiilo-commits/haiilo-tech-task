@@ -118,4 +118,44 @@ describe('ItemsComponent', () => {
 
     expect(bananaControl?.value).toBe(0);
   });
+
+  it('should reset control value to 0 if blurred and value is null', () => {
+    mockStore.items.set(mockItems);
+    fixture.detectChanges();
+    const appleControl = component.itemsForm.get('Apple');
+    appleControl?.setValue(null);
+
+    component.onInputBlur('Apple');
+
+    expect(appleControl?.value).toBe(0);
+  });
+
+  it('should reset control value to 0 if blurred and value is empty string', () => {
+    mockStore.items.set(mockItems);
+    fixture.detectChanges();
+    const appleControl = component.itemsForm.get('Apple');
+    appleControl?.setValue('');
+
+    component.onInputBlur('Apple');
+
+    expect(appleControl?.value).toBe(0);
+  });
+
+  it('should not change control value if blurred and value is a number', () => {
+    mockStore.items.set(mockItems);
+    fixture.detectChanges();
+    const appleControl = component.itemsForm.get('Apple');
+    appleControl?.setValue(5);
+
+    component.onInputBlur('Apple');
+
+    expect(appleControl?.value).toBe(5);
+  });
+
+  it('should do nothing if control does not exist', () => {
+    mockStore.items.set(mockItems);
+    fixture.detectChanges();
+
+    expect(() => component.onInputBlur('NonExistentItem')).not.toThrow();
+  });
 });
