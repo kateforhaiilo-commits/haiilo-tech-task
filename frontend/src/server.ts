@@ -1,5 +1,6 @@
 import {
   AngularNodeAppEngine,
+  createNodeRequestHandler,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
@@ -17,3 +18,8 @@ app.use((req, res, next) => {
     .then((response) => (response ? writeResponseToNodeResponse(response, res) : next()))
     .catch(next);
 });
+
+/**
+ * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
+ */
+export const reqHandler = createNodeRequestHandler(app);
